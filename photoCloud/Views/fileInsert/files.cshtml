@@ -1,7 +1,8 @@
 ﻿<h2>Upload File</h2>
 
 @{
-    if (TempData["msg"] != null){
+    if (TempData["msg"] != null)
+    {
         <script>
             alert('@TempData["msg"]');
         </script>
@@ -21,4 +22,8 @@
     <p style="margin-top:15px;">
         <a asp-controller="userHome" asp-action="Index">See your files</a>
     </p>
+</form>
+
+<form asp-controller="userLogin" asp-action="logout">
+    <button type="submit">Logout</button>
 </form>

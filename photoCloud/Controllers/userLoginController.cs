@@ -26,5 +26,11 @@ namespace photoCloud.Controllers
             HttpContext.Session.SetInt32("userId", userId);
             return RedirectToAction("Index", "userHome");
         }
+
+        public IActionResult logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
+        }
     }
 }
