@@ -1,0 +1,33 @@
+﻿<h2>Login</h2>
+
+<form asp-action="on_click" method="post">
+
+    <div>
+        <label>Username or Email</label><br />
+        <input type="text" name="loginInput" id="log" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Password</label><br />
+        <input type="password" name="pass" id="password" required />
+    </div>
+    <br />
+
+    <button type="submit">Login</button>
+
+</form>
+
+<p style="margin-top:15px;">
+    Don't' have an account?
+    <a asp-controller="userRegister" asp-action="Register">Login here</a>
+</p>
+
+@if (TempData["msg"] != null)
+{
+    <script>
+        alert('@TempData["msg"]');
+        document.getElementById('log').value="";
+        document.getElementById('password').value="";
+    </script>
+}

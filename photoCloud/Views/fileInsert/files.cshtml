@@ -1,0 +1,24 @@
+﻿<h2>Upload File</h2>
+
+@{
+    if (TempData["msg"] != null){
+        <script>
+            alert('@TempData["msg"]');
+        </script>
+    }
+}
+
+<form asp-action="on_click" method="post" enctype="multipart/form-data">
+
+    <div>
+        <label>Select a file</label><br />
+        <input type="file" name="file" required />
+    </div>
+    <br />
+
+    <button type="submit">Upload</button>
+
+    <p style="margin-top:15px;">
+        <a asp-controller="userHome" asp-action="Index">See your files</a>
+    </p>
+</form>

@@ -1,0 +1,44 @@
+﻿@model photoCloud.Models.User;
+
+<h2>Register</h2>
+
+<form asp-action="on_click" method="post">
+
+    <div>
+        <label>Username</label><br />
+        <input type="text" name="userName" id="name" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Email</label><br />
+        <input type="email" name="Email" id="email" required />
+    </div>
+    <br />
+
+    <div>
+        <label>Password</label><br />
+        <input type="password" name="passwordHash" id="pass" required />
+    </div>
+    <br />
+
+    <input type="submit" value="Insert" />
+
+</form>
+
+<p style="margin-top:15px;">
+    Already have an account?
+    <a asp-controller="userLogin" asp-action="Login">Login here</a>
+</p>
+
+@{
+    if(TempData["msg"] != null)
+    {
+        <script>
+            alert('@TempData["msg"]');
+            document.getElementById('name').value="";
+            document.getElementById('email').value="";
+            document.getElementById('pass').value="";
+        </script>
+    }
+}

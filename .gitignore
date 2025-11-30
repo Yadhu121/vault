@@ -1,0 +1,22 @@
+﻿# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build outputs
+bin/
+obj/
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# Publish
+*/publish/
+*/PublishProfiles/
+
+# Secrets (optional)
+appsettings.json
+appsettings.Development.json
