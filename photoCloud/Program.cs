@@ -6,6 +6,7 @@ builder.Services.AddSession();
 
 var app = builder.Build();
 app.UseSession();
+app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -20,6 +21,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=userRegister}/{action=Register}/{id?}");
+    pattern: "{controller=userLogin}/{action=Login}/{id?}");
 
 app.Run();

@@ -1,44 +1,57 @@
 ﻿@model photoCloud.Models.User;
 
+<link rel="stylesheet" href="~/css/register.css" />
+
+<div class="login-container">
+    <h1 id="vault">VAULT</h1>
+
+    <div class="login-card">
 <h2>Register</h2>
 
 <form asp-action="on_click" method="post">
 
     <div>
         <label>Username</label><br />
-        <input type="text" name="userName" id="name" required />
+        <input type="text" name="userName" id="name" placeholder="VaultUser" required />
     </div>
     <br />
 
     <div>
         <label>Email</label><br />
-        <input type="email" name="Email" id="email" required />
+        <input type="email" name="Email" id="email" placeholder="VaultUser@gmail.com" required />
     </div>
     <br />
 
     <div>
         <label>Password</label><br />
-        <input type="password" name="passwordHash" id="pass" required />
+        <input type="password" name="passwordHash" id="pass" placeholder="●●●●●" required />
     </div>
     <br />
 
-    <input type="submit" value="Insert" />
+            <button type="submit">Register</button>
 
 </form>
+
+        @{
+            if (TempData["msg"] != null)
+            {
+                <span id="errorMsg">
+                    @TempData["msg"]
+                </span>
+                <script>
+                    document.getElementById('name').value="";
+                    document.getElementById('email').value="";
+                    document.getElementById('pass').value="";
+                </script>
+            }
+        }
 
 <p style="margin-top:15px;">
     Already have an account?
     <a asp-controller="userLogin" asp-action="Login">Login here</a>
 </p>
 
-@{
-    if(TempData["msg"] != null)
-    {
-        <script>
-            alert('@TempData["msg"]');
-            document.getElementById('name').value="";
-            document.getElementById('email').value="";
-            document.getElementById('pass').value="";
-        </script>
-    }
-}
+
+    </div>
+</div>
+

@@ -1,33 +1,46 @@
-﻿<h2>Login</h2>
+﻿<link rel="stylesheet" href="~/css/login.css" />
 
-<form asp-action="on_click" method="post">
+<div class="login-container">
+    <h1 id="vault">VAULT</h1>
+    <div class="login-card">
+        <h2>Login</h2>
 
-    <div>
-        <label>Username or Email</label><br />
-        <input type="text" name="loginInput" id="log" required />
+        <form asp-action="on_click" method="post">
+
+            <div>
+                <label id="login1">Username or Email</label><br />
+                <input type="text" name="loginInput" id="log" placeholder="VaultUser" required />
+            </div>
+            <br />
+
+            <div>
+                <label>Password</label><br />
+                <input type="password" name="pass" id="password" placeholder="●●●●●" required />
+            </div>
+            <br />
+
+            <button type="submit">Login</button>
+
+        </form>
+
+        @if (TempData["msg"] != null)
+        {
+            <span id="errorMsg">
+                @TempData["msg"]
+            </span>
+            <script>
+                document.getElementById('log').value="";
+                document.getElementById('password').value="";
+            </script>
+        }
+        else
+        {
+            <span id="errorMsg" style="display:none;"></span>
+        }
+
+        <p style="margin-top:15px;">
+            Don't have an account?
+            <a asp-controller="userRegister" asp-action="Register">Register here</a>
+        </p>
     </div>
-    <br />
-
-    <div>
-        <label>Password</label><br />
-        <input type="password" name="pass" id="password" required />
-    </div>
-    <br />
-
-    <button type="submit">Login</button>
-
-</form>
-
-<p style="margin-top:15px;">
-    Don't' have an account?
-    <a asp-controller="userRegister" asp-action="Register">Register here</a>
-</p>
-
-@if (TempData["msg"] != null)
-{
-    <script>
-        alert('@TempData["msg"]');
-        document.getElementById('log').value="";
-        document.getElementById('password').value="";
-    </script>
-}
+</div>

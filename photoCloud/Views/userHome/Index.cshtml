@@ -1,40 +1,41 @@
 ﻿@model List<photoCloud.Models.fileModel>
 
-<h2>My Files</h2>
+<link rel="stylesheet" href="~/css/userhome.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-@if (!Model.Any())
-{
-    <p>No files uploaded yet.</p>
-}
-else
-{
-    <div>
-        @foreach (var file in Model)
+<div class="userhome-wrapper">
+    <div class="userhome-card">
+        <h2>My Files</h2>
+
+        @if (!Model.Any())
         {
-            <div>
-                <p style="font-size:12px; margin:0 0 5px 0;">
-                    @file.uploadedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")
-                </p>
-
-                @if (file.contentType.StartsWith("image"))
+            <p>No files uploaded yet.</p>
+        }
+        else
+        {
+            <div class="files-grid">
+                @foreach (var file in Model)
                 {
-                    <img src="@file.filePath" style="max-width:180px; max-height:180px;" />
-                }
-                else
-                {
-                    <a href="@file.filePath" target="_blank">
-                        Open file
-                    </a>
-                }
+                    <div>
+                   
+                        @if (file.contentType.StartsWith("image"))
+                        {
+                            <img src="@file.filePath" style="max-width:180px; max-height:180px;" />
+                        }
+                        else
+                        {
+                            <a href="@file.filePath" target="_blank">
+                                Open file
+                            </a>
+                        }
 
-                <p style="font-size:11px; margin-top:5px;">
-                    @file.contentType<br />
-                    @Math.Round(file.size / 1024.0, 2) KB
-                </p>
+                    </div>
+                }
             </div>
         }
+
+        <form asp-controller="fileInsert" asp-action="files" method="get">
+            <button type="submit" class="floating-btn"> <i class="fa-solid fa-upload"></i> </button>
+        </form>
     </div>
-}
-<p style="margin-top:15px;">
-    <a asp-controller="fileInsert" asp-action="files">Upload more files</a>
-</p>
+</div>

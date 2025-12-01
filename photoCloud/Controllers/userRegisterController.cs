@@ -28,7 +28,7 @@ namespace photoCloud.Controllers
                     break;
                 case 1:
                     TempData["msg"] = "Registration successfull";
-                    break;
+                    return RedirectToAction("Login", "userLogin");
                 default:
                     TempData["msg"] = "Something went wrong.";
                     break;
