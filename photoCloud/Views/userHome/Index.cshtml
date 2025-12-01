@@ -34,8 +34,12 @@
             </div>
         }
 
+        <form asp-controller="Profile" asp-action="Profile" method="get">
+            <button title="Profile" type="submit" class="floating-profilebtn"> <i class="fa-solid fa-user"></i> </button>
+        </form>
+
         <form asp-controller="fileInsert" asp-action="files" method="get">
-            <button type="submit" class="floating-btn"> <i class="fa-solid fa-upload"></i> </button>
+            <button title="Upload files" type="submit" class="floating-btn"> <i class="fa-solid fa-upload"></i> </button>
         </form>
     </div>
 </div>

@@ -1,9 +1,31 @@
-﻿.login-container {
+﻿.vault-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.vault-bg svg {
+    width: 161.75vw;
+    height: 160vh;
+    display: block;
+}
+
+.vault-bg text {
+    fill: #FAF6E9;
+    stroke: rgba(0,0,0,0.4);
+    stroke-width: 0.01px;
+}
+
+body {
+    background: #FAF6E9;
+}
+
+.login-container {
     min-height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f5f5f5;
 }
 
     .login-container #vault {
@@ -20,9 +42,9 @@
 .login-card {
     width: 320px;
     padding: 30px 35px;
-    background: #ffffff;
+    background: #FFFDF6;
     border: 1px solid #111;
-    box-shadow: 6px 6px 0 #111;
+    box-shadow: 6px 6px 0 rgba(17, 17, 17, 0.6);
     font-family: "Arial", sans-serif;
 }
 

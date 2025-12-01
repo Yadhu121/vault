@@ -87,5 +87,53 @@ namespace photoCloud.Models
             return files;
 
         }
+
+        public profile GetProfile(int userId)
+        {
+            profile p = null;
+            SqlCommand cmd = new SqlCommand("profilePro", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@userId", userId);
+
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                p = new profile
+                {
+                    userId = Convert.ToInt32(dr["userId"]),
+                    userName = dr["userName"].ToString(),
+                    Email = dr["Email"].ToString(),
+                    ProfileImagePath = dr["ProfileImagePath"] == DBNull.Value ? null : dr["ProfileImagePath"].ToString(),
+                    Bio = dr["Bio"] == DBNull.Value ? null : dr["Bio"].ToString()
+                };
+            }
+            con.Close();
+            return p;
+        }
+
+        public void UpdateProfile(int userId, string imagePath, string bio)
+        {
+            SqlCommand cmd = new SqlCommand("profilePro_Update", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@userId", userId);
+
+            if (imagePath != null)
+                cmd.Parameters.AddWithValue("@imagePath", imagePath);
+            else
+                cmd.Parameters.AddWithValue("@imagePath", DBNull.Value);
+
+            if (!string.IsNullOrWhiteSpace(bio))
+                cmd.Parameters.AddWithValue("@Bio", bio);
+            else
+                cmd.Parameters.AddWithValue("@Bio", DBNull.Value);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
     }
 }

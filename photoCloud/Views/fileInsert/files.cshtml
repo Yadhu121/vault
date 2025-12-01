@@ -27,12 +27,16 @@
 
 </form>
 
+        <form asp-controller="fileInsert" asp-action="files" method="get">
+            <button title="Profile" type="submit" class="floating-profilebtn"> <i class="fa-solid fa-user"></i> </button>
+        </form>
+
         <form asp-controller="userHome" asp-action="Index" method="get">
-            <button type="submit" class="floating-homebtn"> <i class="fa-jelly fa-regular fa-image"></i> </button>
+            <button title="Home" type="submit" class="floating-homebtn"> <i class="fa-jelly fa-regular fa-image"></i> </button>
         </form>
 
 <form asp-controller="userLogin" asp-action="logout" method="get">
-            <button type="submit" class="floating-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+            <button title="Logout" type="submit" class="floating-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
 </form>
 
     </div>

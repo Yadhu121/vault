@@ -1,0 +1,46 @@
+﻿@model photoCloud.Models.profile
+
+<h2>My Profile</h2>
+
+<div style="display:flex; gap:30px; margin-top:20px; align-items:flex-start;">
+
+    <!-- LEFT: Image + Bio Form -->
+    <div>
+        <!-- Profile Image -->
+        @if (!string.IsNullOrEmpty(Model.ProfileImagePath))
+        {
+            <img src="@Model.ProfileImagePath"
+                 alt="Profile Picture"
+                 style="width:150px; height:150px; border-radius:50%; object-fit:cover;" />
+        }
+        else
+        {
+            <!-- Default image if user has no profile picture -->
+            <img src="/images/default-profile.png"
+                 alt="Profile Picture"
+                 style="width:150px; height:150px; border-radius:50%; object-fit:cover;" />
+        }
+
+        <!-- Form: upload image + edit bio -->
+        <form asp-action="Profile" method="post" enctype="multipart/form-data" style="margin-top:15px;">
+            <div>
+                <label>Change profile picture (optional)</label><br />
+                <input type="file" name="profileImage" />
+            </div>
+
+            <div style="margin-top:10px;">
+                <label>Bio (optional)</label><br />
+                <textarea name="bio" rows="3" cols="35">@Model.Bio</textarea>
+            </div>
+
+            <button type="submit" style="margin-top:10px;">Save</button>
+        </form>
+    </div>
+
+    <!-- RIGHT: Basic info -->
+    <div>
+        <p><strong>Username:</strong> @Model.userName</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+    </div>
+
+</div>
