@@ -1,4 +1,10 @@
-﻿<h2>Upload File</h2>
+﻿<link rel="stylesheet" href="~/css/userFileUpload.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="userfile-wrapper">
+    <div class="userfile-card">
+
+<h2>Upload File</h2>
 
 @{
     if (TempData["msg"] != null)
@@ -9,21 +15,25 @@
     }
 }
 
-<form asp-action="on_click" method="post" enctype="multipart/form-data">
+<form asp-controller="fileInsert" asp-action="on_click" method="post" enctype="multipart/form-data">
 
     <div>
-        <label>Select a file</label><br />
-        <input type="file" name="file" required />
+        <label>Select file(s)</label><br />
+        <input type="file" name="files" multiple required />
     </div>
     <br />
 
-    <button type="submit">Upload</button>
+    <button type="submit" class="btn">Upload</button>
 
-    <p style="margin-top:15px;">
-        <a asp-controller="userHome" asp-action="Index">See your files</a>
-    </p>
 </form>
 
-<form asp-controller="userLogin" asp-action="logout">
-    <button type="submit">Logout</button>
+        <form asp-controller="userHome" asp-action="Index" method="get">
+            <button type="submit" class="floating-homebtn"> <i class="fa-jelly fa-regular fa-image"></i> </button>
+        </form>
+
+<form asp-controller="userLogin" asp-action="logout" method="get">
+            <button type="submit" class="floating-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
 </form>
+
+    </div>
+</div>

@@ -13,52 +13,69 @@ namespace photoCloud.Controllers
         }
 
         [HttpPost]
-        public IActionResult on_click(IFormFile file)
+        public IActionResult on_click(List<IFormFile> files)
         {
-            if(file == null || file.Length == 0)
+            if(files == null || !files.Any(f => f != null && f.Length > 0))
             {
-                TempData["msg"] = "Please select a file.";
-                return View();
+                TempData["msg"] = "Please select atleast one file.";
+                return View("files");
             }
+
+            int? userId = HttpContext.Session.GetInt32("userId");
+            if (userId == null)
+                return RedirectToAction("Login", "userLogin");
+
             string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
             if (!Directory.Exists(uploadsFolder))
             {
                 Directory.CreateDirectory(uploadsFolder);
             }
 
-            string extension = Path.GetExtension(file.FileName);
-            string newFileName = Guid.NewGuid().ToString() + extension;
-            string fullPath = Path.Combine(uploadsFolder, newFileName);
+            int successCount = 0;
+            int failCount = 0;
 
-            using (var stream = new FileStream(fullPath, FileMode.Create))
+            foreach (var file in files)
             {
-                file.CopyTo(stream);
-            }
+                if (file == null || file.Length == 0)
+                    continue;
 
-            string relativePath = "/uploads/" + newFileName;
+                string extension = Path.GetExtension(file.FileName);
+                string newFileName = Guid.NewGuid().ToString() + extension;
+                string fullPath = Path.Combine(uploadsFolder, newFileName);
 
-            int? userId = HttpContext.Session.GetInt32("userId");
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
 
-            if(userId == null)
-            return RedirectToAction("Login", "userLogin");
+                string relativePath = "/uploads/" + newFileName;
 
-            int status = db.insertMedia(
+                int status = db.insertMedia(
                 userId.Value,
                 relativePath,
                 file.ContentType,
                 file.Length
-            );
+                );
 
-            if (status == 1)
+                if (status == 1)
+                    successCount++;
+                else
+                    failCount++;
+            }
+
+            if (successCount > 0 && failCount == 0)
             {
-                TempData["msg"] = "File uploaded successfully.";
+                TempData["msg"] = $"{successCount} file(s) uploaded successfully.";
+            }
+            else if (successCount > 0 && failCount > 0)
+            {
+                TempData["msg"] = $"{successCount} file(s) uploaded, {failCount} failed to save.";
             }
             else
             {
-                TempData["msg"] = "Error saving file info.";
+                TempData["msg"] = "Error uploading files.";
             }
-
-            return View("files");
+            return View("files");  
         }
     }
 }

@@ -8,7 +8,7 @@
 
     .login-container #vault {
         position: absolute;
-        top: 1%;
+        top: 10%;
         left: 50%;
         transform: translateX(-50%);
         font-size: 500%;
